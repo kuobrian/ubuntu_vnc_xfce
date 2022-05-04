@@ -10,7 +10,7 @@ This docker image is base on nvidia/cuda:11.0.3-cudnn8-devel-ubuntu18.04
 
 ## How to Create docker container
 ```
-docker run -it -d -p 25911:5901 -p 26911:6901 -p 25910:22  -v [Local volume path]:/home/user/Desktop/data [username]/[image_name]:[tag]
+docker run -it -d -p [local port]:5901 -p [local port]:6901 -p [local port]:22  -v [Local volume path]:/home/user/Desktop/data [username]/[image_name]:[tag]
 ```
 
 
