@@ -137,7 +137,7 @@ ENV \
     API_PORT2="5055" \
     API_PORT3="8080" \
     API_PORT4="8088" \
-    VNC_PW=${ARG_VNC_PW:-123456} \
+    VNC_PW=${ARG_VNC_PW:-wistron1234} \
     VNC_RESOLUTION=${ARG_VNC_RESOLUTION:-1980x1200} \
     VNC_VIEW_ONLY=false
 
@@ -202,21 +202,20 @@ RUN curl -sLo ~/miniconda.sh https://repo.continuum.io/miniconda/Miniconda3-py38
     && rm ~/miniconda.sh \
     && conda install -y python==3.8.0
 
-#RUN conda install -y -c Pillow scikit-learn matplotlib pandas scikit-image
- 
-#RUN pip install -U albumentations --no-binary imgaug
-#RUN pip install opencv-python
+RUN conda install -y -c Pillow scikit-learn matplotlib pandas scikit-image
  
 # CUDA 11.0-specific steps
-# RUN conda install -y -c pytorch \
-#     cudatoolkit=11.0.221 \
-#     "pytorch=1.7.0=py3.8_cuda11.0.221_cudnn8.0.3_0" \
-#     "torchvision=0.8.1=py38_cu110" 
-# RUN conda clean -ya
-#  
+RUN conda install -y -c pytorch \
+    cudatoolkit=11.0.221 \
+    "pytorch=1.7.0=py3.8_cuda11.0.221_cudnn8.0.3_0" \
+    "torchvision=0.8.1=py38_cu110" 
+RUN conda clean -ya
+  
+RUN pip install -U albumentations --no-binary imgaug
+RUN pip install opencv-python
+
 #USER root
 ### Issue #7: Mitigating problems with foreground mode
 WORKDIR ${STARTUPDIR}
 ENTRYPOINT ["./vnc_startup.sh"]
 CMD [ "--wait" ]
-
